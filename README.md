@@ -51,7 +51,14 @@ wsl --install
 sudo apt update
 sudo apt install qemu-user-static
 ```
-Ce paquet fait le pont entre l'architechture ARM et X86. Il est nécéssaire.
+
+*Ce paquet fait le pont entre l'architechture ARM et X86. Il est nécéssaire.*
+
+4. Enregistrez qemu avec la ligne suivante:
+```bash
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+```
+
 
 ## Utiliser le Dev Container
 
@@ -83,5 +90,5 @@ L'image de base du DevContainer vient préinstallée avec les outils nécéssair
 1. Assurez-vous d'avoir bien suivi les instructions sous [Configurer WSL pour exécuter ARM](#configurer-wsl-pour-exécuter-arm).
 
 ### Je n'utilise pas Visual Studio Code
-Ougabouga
+Ougabouga  
 ![Singe qui frappe une planche avec un marteau.](https://media1.tenor.com/m/NazUtPacRpIAAAAd/monke-orangutan.gif)
