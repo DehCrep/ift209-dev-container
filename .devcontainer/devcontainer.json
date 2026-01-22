@@ -1,0 +1,11 @@
+{
+    "name": "armdevenv",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "options": [
+            "--platform=linux/arm64"
+        ]
+    },
+    "overrideCommand": true
+    //docker run --platform=linux/arm64/v8 --rm -t arm64v8/ubuntu uname -m
+}
