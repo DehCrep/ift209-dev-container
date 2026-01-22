@@ -55,7 +55,7 @@ Ce paquet fait le pont entre l'architechture ARM et X86. Il est nécéssaire.
 
 ## Utiliser le Dev Container
 
-1. Copiez le dossier intitulé [`.devcontainer`](.devcontainer) (à partir de ce dépôt) dans le même dossier que le devoir que vous utilisez
+1. Copiez le dossier intitulé [`.devcontainer`](.devcontainer) (à partir de ce dépôt) dans le même dossier que le devoir que vous utilisez.
 
 2. Ouvrez votre dossier de travail avec *Visual Studio Code*. Celui-ci devrait vous proposer de rouvrir le dossier dans le DevContainer. Faites-le! Si vous ne voyez pas le prompt, assurez vous que le dossier [`.devcontainer`](.devcontainer) se situe bien à la racine de votre dossier de travail. Vous pouvez forcer Visual Studio Code à lancer le Dev Container en appuyant sur `f1` et en sélectionnant `Dev Containers: Reopen in Container`.
 
@@ -65,7 +65,7 @@ Au premier lancement, Docker téléchargera les fichiers nécéssaires pour l'ex
 
 3. Ouvrez un nouveau terminal, compilez votre programme avec les commandes vues en classe et exécutez le comme si vous utilisiez une vraie machine ARM !
 
-L'image que du DevContainer vient préinstallée avec tous les meilleurs outils pour la compilation de code assembleur:
+L'image de base du DevContainer vient préinstallée avec les outils nécéssaires à la compilation de code asm:
 - `gcc`
 - `make` 
 - `ld`
