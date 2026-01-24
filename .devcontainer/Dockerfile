@@ -4,3 +4,7 @@ FROM gcc
 
 # Ce qui se situe dans le dossier .devcontainer/tools est copié dans le container sous /root/.../tools
 COPY ./tools /root/SOURCES/ift209/tools
+
+# Installer le GNU Debugger
+RUN apt update && apt install -y \
+    gdb
