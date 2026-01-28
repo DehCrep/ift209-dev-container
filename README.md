@@ -12,7 +12,7 @@ Pour une installation facile mais plus lourde, suivez les instructions dans [Con
 
 > Il est suggérer d'installer Docker Desktop sur votre appareil, puisque ça facilite énormément le processus de configuration.
 
-Alternativement, vous pouvez configurer manuellement votre appareil pour supporter l'émulation de containers ARM en suivant les instructions dans les instructions dans [Configuration manuelle de WSL](setup-wsl-manually.md).
+Alternativement, vous pouvez configurer manuellement votre appareil pour supporter l'émulation de containers ARM en suivant les instructions dans les instructions dans [Configuration manuelle de WSL](setup-manually.md).
 
 
 ## Utiliser le Dev Container
