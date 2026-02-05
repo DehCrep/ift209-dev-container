@@ -1,24 +1,26 @@
 {
     "version": "2.0.0",
     "tasks": [
-        {
-            "label": "arm-debug",
-            "type": "shell",
-            "command": "bash -ic 'arm-debug ${fileDirname}${pathSeparator}${fileBasenameNoExtension}'",
-            "problemMatcher": [],
-            "isBackground": true,
-            "group": {
-                "kind": "build",
-                "isDefault": true
+            {
+                "label": "arm-debug",
+                "type": "shell",
+                "command": "arm-debug ${file}",
+                "isBackground": true,
+
+                "problemMatcher": {
+                    "owner": "arm-debug",
+                    "pattern": [],
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": "QEMU listening on port",
+                        "endsPattern": "$^"
+                }
             },
             "presentation": {
-                "echo": true,
                 "reveal": "always",
-                "focus": true,
-                "panel": "shared",
-                "showReuseMessage": true,
-                "clear": false
-            },
+                "panel": "dedicated",
+                "focus": true
+            }
         }
     ]
 }

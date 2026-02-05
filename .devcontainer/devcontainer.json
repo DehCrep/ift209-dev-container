@@ -15,7 +15,8 @@
                 "files.associations": {
                     "*.as": "arm.aarch64-assembly"
                 },
-                "debug.allowBreakpointsEverywhere": true
+                "debug.allowBreakpointsEverywhere": true,
+                "task.problemMatchers.neverPrompt": true
             }
         }
     }
