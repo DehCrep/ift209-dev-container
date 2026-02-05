@@ -9,6 +9,7 @@
             "cwd": "${fileDirname}",
             "MIMode": "gdb",
             "miDebuggerPath": "/usr/bin/gdb-multiarch",
+            // TODO: use env DB_HOST and DB_PORT
             "miDebuggerServerAddress": "localhost:1234",
             "stopAtEntry": true,
             "preLaunchTask": "arm-debug",
