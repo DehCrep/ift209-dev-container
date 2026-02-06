@@ -10,13 +10,10 @@
             "MIMode": "gdb",
             "miDebuggerPath": "/usr/bin/gdb-multiarch",
             "miDebuggerServerAddress": "${env:DB_HOST}:${env:DB_PORT}",
+            "preLaunchTask": "(QEMU) launch debug",
             "stopAtEntry": true,
+            "targetArchitecture": "arm64",
             "setupCommands": [
-                {
-                    "description": "Set ARM architecture",
-                    "text": "set architecture aarch64",
-                    "ignoreFailures": false
-                },
                 {
                     "description": "Set breakpoint pending on",
                     "text": "set breakpoint pending on",

@@ -4,33 +4,32 @@
         {
             "label": "(QEMU) launch debug",
             "type": "shell",
-            // This is very hacky. I'm not aware of any cleaner solutions.
-            // 1. Echo 'Start'
-            // 2. Subshell that logs Ready in 0.5 second
-            // 3. Launch the qemu server
             "dependsOn":[ "Log Ready to QEMU output" ],
-            "command": "echo Start && (sleep 0.5; echo 'Ready' > /proc/$(pgrep qemu-aarch64)/fd/1) & qemu-aarch64 -L /usr/aarch64-linux-gnu/ -g ${env:DB_PORT} ${fileDirname}${pathSeparator}${fileBasenameNoExtension}",
+            // Print 'ping' and 'pong' to trigger background command lifecycle.
+            "command": "echo ping; echo pong; clear; qemu-aarch64 -L /usr/aarch64-linux-gnu/ -g ${env:DB_PORT} ${fileDirname}${pathSeparator}${fileBasenameNoExtension}",
             "isBackground": true,
             "presentation": {
-                "echo": true,
+                // Disabled because cleared anyway.
+                "echo": false,
                 "reveal": "always",
                 "focus": true,
                 "panel": "shared",
                 "showReuseMessage": false,
-                "clear": false
+                "clear": true
             },
             "problemMatcher": {
                 "owner": "custom",
                 "pattern": {
-                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(error|warning):\\s+(.*)$",
+                    // Should never find any errors.
+                    "regexp": "^(.*)",
                     "file": 1,
                     "line": 2,
                     "column": 3,
                     "message": 5
                 },
                 "background": {
-                    "beginsPattern": ".*",
-                    "endsPattern": "Ready"
+                    "beginsPattern": "ping",
+                    "endsPattern": "pong"
                 }
             }
         }
