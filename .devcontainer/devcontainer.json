@@ -8,12 +8,12 @@
         "vscode": {
             "extensions": [
                 "ms-vscode.cpptools",
-                "dan-c-underwood.arm",
-                "ms-vscode.makefile-tools"
+                "ms-vscode.makefile-tools",
+                "Arm.armls"
             ],
             "settings": {
                 "files.associations": {
-                    "*.as": "asm"
+                    "*.as": "arm.aarch64-assembly"
                 },
                 "debug.allowBreakpointsEverywhere": true
             }
