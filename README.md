@@ -6,27 +6,22 @@ Ce projet a été fait avec amour pour les élèves de l'université de Sherbook
 
 Je vous prend donc par la main pour vous aider à configurer un environnement de développement assembly beaucoup plus légé et moderne que la solution proposée en cours.
 
-## Quelques mots sur la version 2.
-
-La deuxième version du DevContainer est beaucoup plus performante que la première, puisqu'elle se configure et se compile hors de la couche d'émulation, contrairement à la dernière.
-
-Elle est aussi configurée pour permettre le débogage visuel, ce qui représente un avancement fulgurant par rapport à la version précédente...
-
-Bref, le projet est plus mature et plus puissant que jamais!
-
 ## Pré-requis
 
-Le DevContainer de ce projet est configuré comporter toutes les composantes logicielles requises pour compiler, debugger, et exécuter des applications ARM sur n'importe quel ordinateur x86.
+Le DevContainer de ce projet est configuré spécifiquement pour permettre le développement assembleur aarch64 sur les ordinateurs x86.
 
 ### Visual Studio Code
 
 1. Installez Visual Studio Code à partir du [site officiel](https://code.visualstudio.com/download).
+1. Installez l'extension suivante dans *Visual Studio Code*:
+    - [Remote Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
 ### Docker
 
-1. Suivez les instructions d'installation à partir du [site officiel](https://docs.docker.com/engine/install/).
+1. Suivez les instructions d'installation à partir du [site officiel](https://docs.docker.com/engine/install/). Pour un installation clé en main, installez [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 
-> **Utilisateurs Windows:** Je vous conseille d'installer [Docker Desktop](https://www.docker.com/products/docker-desktop/), puisque ça facilite le processus d'installation. Pour un installation plus légère, installez manuellement WSL et Docker avec les instructions dans [ce document](/wsl-configuration.md).
+> **Utilisateurs Windows:** Pour un installation plus légère, installez manuellement WSL et Docker avec les instructions dans [ce document](/wsl-configuration.md).
+
 ## Utiliser le Dev Container
 1. Téléchargez la dernière version du DevContainer [ici](https://github.com/DehCrep/IFT209-DevContainer/releases/latest).
 1. Dézippez la dans le même dossier que votre projet. *Les dossiers [`.devcontainer`](.devcontainer) [`.vscode`](.vscode) devraient se trouver à sa racine.*
@@ -37,7 +32,7 @@ Si vous ne voyez pas le prompt, assurez vous que le dossier [`.devcontainer`](.d
 
 > **Remarque:** Au premier lancement, Docker téléchargera les fichiers nécéssaires pour l'exécution de l'environnement de développement. Ça prendra quelques minutes. Vous verrez apparaître vos fichiers dans l'explorateur à gauche lorsque le processus sera fini. Le libellé du ruban bleu en bas à gauche devrait aussi indiquer `armdevenv`.
 
-La page va se recharger et vous verrez plusieurs lignes défiler sur un terminal inférieur.
+La page va se recharger et vous verrez plusieurs lignes défiler sur un terminal au bas de l'écran.
 
 ## Compiler un programme
 
@@ -77,7 +72,7 @@ ar ./prog
 
 ## Débogage
 
-Il est présentement impossible de déboger directement un programme qui s'exécute s'émule avec QEMU. Il faut utiliser une formule un peu plus sofistiquée mais tout de même intuitive du serveur et client de débogage.
+QEMU ne supporte pas le débogage avec gdb nativement, mais il permet l'utilisation de la fonctionnalité de serveur de débogage:
 
 
 1. Dans un premier terminal, lancez d'abord votre programme avec la fonction `arm-debug [file]` ou son alias `adb [file]`.
@@ -100,7 +95,7 @@ Il est présentement impossible de déboger directement un programme qui s'exéc
 
 ## Débogage visuel (Visual Studio Code)
 
-Le débogage visuel trivialise le processus de lancement de l'application et le réduit à un simple clic :D.
+Le débogage visuel trivialise le processus de lancement de l'application et le réduit à un simple clic !
 
 1. Faites en sorte que votre programme soit correctement compilé, et que son exécutable se trouve dans le même dossier que son fichier source (au sinon, ça ne marchera pas!)
 
@@ -116,9 +111,7 @@ Le débogage visuel trivialise le processus de lancement de l'application et le 
 
 4. Ajoutez des points d'arrêts directement dans votre fichier source (au `Main`, par exemple), et utilisez les contrôles d'avancement du panneau de contrôle de déboguage qui s'est ouvert dans le milieu haut droit de l'interface de Visual Studio Code pour avancer dans votre code.
 
-    *Si votre fichier n'a pas de coloration syntaxique ou si vous n'arrivez pas à émettre un break point, renommez temporairement son extension à `.S`. Essayez aussi d'activer manuellement le paramètre `allowBreakpointsEverywhere` dans les paramètres de Visual Studio Code. Lancer un débogage peut aider à débloquer les breakpoints! Assurez-vous que vous compilez aussi avec l'argument `--gstabs`.* 
-    
-    > **Attention!** Vous ne pourrez qu'utiliser les breakpoints sur le fichier source qui a le même nom que l'exécutable. Utilisez gdb sans visuel ou mettez des breakpoints dans le code désassemblé directement.
+    > **Attention!** Vous ne pourrez qu'utiliser les breakpoints sur le fichier source qui a le même nom que l'exécutable. Utilisez gdb sans visuel ou mettez des breakpoints dans le code désassemblé directement. Assurez-vous que vous compilez avec l'argument `--gstabs`.
 
 5. Vous pouvez consulter vos registres dans le panneau de gauche.
 

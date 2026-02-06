@@ -42,5 +42,3 @@ wsl --install
 
 ### Failed with error: Command failed: wsl --install -d Ubuntu
 1. Vous devez activer la virtualisation dans le bios.
-
----
