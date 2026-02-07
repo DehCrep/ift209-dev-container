@@ -1,4 +1,4 @@
-# Développement ASM ARM sur x86
+# Développement ASM ARM sur x86 v2
 
 ![Visual Studio Code en plein débogage ASM ARM.](images/debug-preview.png)
 
@@ -22,6 +22,9 @@ Le DevContainer de ce projet est configuré spécifiquement pour permettre le d�
 
 > **Utilisateurs Windows:** Pour un installation plus légère, installez manuellement WSL et Docker avec les instructions dans [ce document](/wsl-configuration.md).
 
+1. Suivez les instructions d'installation à partir du [site officiel](https://docs.docker.com/engine/install/).
+
+> **Utilisateurs Windows:** Je vous conseille d'installer [Docker Desktop](https://www.docker.com/products/docker-desktop/), puisque ça facilite le processus d'installation. Pour un installation plus légère, installez manuellement WSL et Docker avec les instructions dans [ce document](/wsl-configuration.md).
 ## Utiliser le Dev Container
 1. Téléchargez la dernière version du DevContainer [ici](https://github.com/DehCrep/IFT209-DevContainer/releases/latest).
 1. Dézippez la dans le même dossier que votre projet. *Les dossiers [`.devcontainer`](.devcontainer) [`.vscode`](.vscode) devraient se trouver à sa racine.*
