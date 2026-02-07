@@ -6,23 +6,21 @@ Ce projet a été fait avec amour pour les élèves de l'université de Sherbook
 
 Je vous prend donc par la main pour vous aider à configurer un environnement de développement assembly beaucoup plus légé et moderne que la solution proposée en cours.
 
-## Quelques mots sur la version 2.
-
-La deuxième version du DevContainer est beaucoup plus performante que la première, puisqu'elle se configure et se compile hors de la couche d'émulation, contrairement à la dernière.
-
-Elle est aussi configurée pour permettre le débogage visuel, ce qui représente un avancement fulgurant par rapport à la version précédente...
-
-Bref, le projet est plus mature et plus puissant que jamais!
-
 ## Pré-requis
 
-Le DevContainer de ce projet est configuré comporter toutes les composantes logicielles requises pour compiler, debugger, et exécuter des applications ARM sur n'importe quel ordinateur x86.
+Le DevContainer de ce projet est configuré spécifiquement pour permettre le développement assembleur aarch64 sur les ordinateurs x86.
 
 ### Visual Studio Code
 
 1. Installez Visual Studio Code à partir du [site officiel](https://code.visualstudio.com/download).
+1. Installez l'extension suivante dans *Visual Studio Code*:
+    - [Remote Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
 ### Docker
+
+1. Suivez les instructions d'installation à partir du [site officiel](https://docs.docker.com/engine/install/). Pour un installation clé en main, installez [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+
+> **Utilisateurs Windows:** Pour un installation plus légère, installez manuellement WSL et Docker avec les instructions dans [ce document](/wsl-configuration.md).
 
 1. Suivez les instructions d'installation à partir du [site officiel](https://docs.docker.com/engine/install/).
 
@@ -37,7 +35,7 @@ Si vous ne voyez pas le prompt, assurez vous que le dossier [`.devcontainer`](.d
 
 > **Remarque:** Au premier lancement, Docker téléchargera les fichiers nécéssaires pour l'exécution de l'environnement de développement. Ça prendra quelques minutes. Vous verrez apparaître vos fichiers dans l'explorateur à gauche lorsque le processus sera fini. Le libellé du ruban bleu en bas à gauche devrait aussi indiquer `armdevenv`.
 
-La page va se recharger et vous verrez plusieurs lignes défiler sur un terminal inférieur.
+La page va se recharger et vous verrez plusieurs lignes défiler sur un terminal au bas de l'écran.
 
 ## Compiler un programme
 
@@ -60,7 +58,7 @@ gcc ...
 
 Vous pouvez compiler les projets qui ont un makefile sans soucis, puisque make prend aussi en compte les alias.
 ```bash
-# En ayant cd où il y a un Makefile.
+# En ayant cd le répertoire d'un Makefile.
 make
 ```
 
@@ -77,7 +75,7 @@ ar ./prog
 
 ## Débogage
 
-Il est présentement impossible de déboger directement un programme qui s'exécute s'émule avec QEMU. Il faut utiliser une formule un peu plus sofistiquée mais tout de même intuitive du serveur et client de débogage.
+QEMU ne supporte pas le débogage avec gdb nativement, mais il supporte son utilisation par le biais d'un serveur de débogage:
 
 
 1. Dans un premier terminal, lancez d'abord votre programme avec la fonction `arm-debug [file]` ou son alias `adb [file]`.
@@ -86,9 +84,9 @@ Il est présentement impossible de déboger directement un programme qui s'exéc
     # Même chose que:
     adb ./prog
     ```
-    Vous remarquerez que votre programme semble être en pause. **C'est le cas!** Il attend le signal du débogeur pour commencer son exécution.
+    Vous remarquerez que votre programme semble être en pause. **C'est le cas!** Il attend le signal du débogueur pour commencer son exécution.
 
-2. Dans un deuxième terminal, lancez le débogeur avec la commande `arm-debugger [file]` ou son alias `adbg [file]`.
+2. Dans un deuxième terminal, lancez le débogueur avec la commande `arm-debugger [file]` ou son alias `adbg [file]`.
     ```bash
     #arm-debugger ./prog
     # Même chose que:
@@ -96,32 +94,29 @@ Il est présentement impossible de déboger directement un programme qui s'exéc
     ```
     N'utiliser pas la commande `run` pour lancer le programme, puisqu'il est déjà en cours d'exécution.
 
-    Vous êtes maintenant en train de déboger votre programme! Utilisez toutes les commandes de GDB que vous voulez (quel plaisir!)
+    Vous êtes maintenant en train de déboguer votre programme! Utilisez toutes les commandes de GDB que vous voulez (quel plaisir!)
 
 ## Débogage visuel (Visual Studio Code)
 
-Le débogage visuel trivialise le processus de lancement de l'application et le réduit à un simple clic :D.
+Le débogage visuel trivialise le processus de lancement de l'application et le réduit à un simple clic !
 
 1. Faites en sorte que votre programme soit correctement compilé, et que son exécutable se trouve dans le même dossier que son fichier source (au sinon, ça ne marchera pas!)
 
-2. Ouvrez le fichier source qui correspond à l'exécutable que vous souhaitez déboger (par exemple, pour un programme intitulé *prog*, sélectionnez son fichier source *prog.as*) dans Visual Studio Code.
+2. Ouvrez le fichier source qui correspond à l'exécutable que vous souhaitez déboguer (par exemple, pour un programme intitulé *prog*, sélectionnez son fichier source *prog.as*) dans Visual Studio Code.
 
 3. Appuyez sur `f5` OU Cliquez sur l'onglet **Run and Debug** à gauche (avec la triangle superposé d'un insecte), assurez vous que le profil de lancement sélectionné s'intitule `Debug ARM64 via QEMU` et appuyez sur la flèche de lancement verte en haut de la page.
 
-    Attendez quelques instants et vous verrez peut-être un message d'erreur apparaître qui vous informe qu'une tâche n'a pas cessé de s'exécuter. Sélectionnez la case pour *Remember mu choice for this task* et cliquer sur le bouton pour *Debug Anyway*.
+    Le programme commencera toujours son exécution hors de votre fichier. C'est un caprice de l'émulation QEMU (je pense). Vous verrez un nouveau fichier inexistant s'ouvrir. Vous pouvez le fermer et rouvrir le fichier source de l'exécutable courant.
 
-    ![Message d'erreur](images/debug-anyway.png)
+- **Ajouter des points d'arrêt**  
+Ajoutez des points d'arrêts directement dans votre fichier source (au `Main`, par exemple), et utilisez les contrôles d'avancement du panneau de contrôle de déboguage qui s'est ouvert dans le milieu haut droit de l'interface de Visual Studio Code pour avancer dans votre code.
 
-    Le programme commencera toujours son exécution hors de votre fichier. C'est un quirk de l'émulation QEMU (je pense). Vous verrez un nouveau fichier inexistant s'ouvrir. Vous pouvez le fermer et rouvrir le fichier source de l'exécutable courant.
+    > **Attention!** Vous ne pourrez qu'utiliser les breakpoints sur le fichier source qui a le même nom que l'exécutable. Utilisez gdb sans visuel ou mettez des breakpoints dans le code désassemblé directement. Assurez-vous que vous compilez avec l'argument `--gstabs`.
 
-4. Ajoutez des points d'arrêts directement dans votre fichier source (au `Main`, par exemple), et utilisez les contrôles d'avancement du panneau de contrôle de déboguage qui s'est ouvert dans le milieu haut droit de l'interface de Visual Studio Code pour avancer dans votre code.
+- **Consulter les registres**  
+Vous pouvez consulter les registres dans le panneau de gauche.
 
-    *Si votre fichier n'a pas de coloration syntaxique ou si vous n'arrivez pas à émettre un break point, renommez temporairement son extension à `.S`. Essayez aussi d'activer manuellement le paramètre `allowBreakpointsEverywhere` dans les paramètres de Visual Studio Code. Lancer un débogage peut aider à débloquer les breakpoints! Assurez-vous que vous compilez aussi avec l'argument `--gstabs`.* 
-    
-    > **Attention!** Vous ne pourrez qu'utiliser les breakpoints sur le fichier source qui a le même nom que l'exécutable. Utilisez gdb sans visuel ou mettez des breakpoints dans le code désassemblé directement.
-
-5. Vous pouvez consulter vos registres dans le panneau de gauche.
-
-6. Aussi dans le panneau de gauche, si les breakpoint ne fonctionnent pas, vous pouvez consulter le code désassemblé de l'application en faisant un clic droit sur sur n'importe quel élément du call stack et en sélectionnant `Open Disassembly View`.
+- **Désassemblage du code**  
+Vous pouvez consulter le code désassemblé de l'application en faisant un clic droit sur sur n'importe quel élément du call stack (dans le panneau de gauche) et en sélectionnant `Open Disassembly View`. *Vous pouvez même directement ajouter des breakpoints dans le code désassemblé!*
 
     ![Le panneau de sisassembly dans Visual Studio Code](images/disassembly-preview.png)

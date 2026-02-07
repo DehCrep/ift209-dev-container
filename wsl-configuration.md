@@ -2,8 +2,7 @@
 
 Cette procédure vous aidera à configurer votre système pour supporter l'exécution de containers ARM par l'intermédiaire de l'émulateur QEMU.
 
-> **Attention!**  
-Si Docker Desktop est déjà installé, vous êtes déjà prêt à utiliser le container !
+> **Attention!** Si Docker Desktop est déjà installé, vous êtes déjà prêt à utiliser le container. Vous n'avez pas à suivre les étapes suivantes.
 
 ## Configurer votre ordinateur
 1. Assurez-vous que la **virtualisation est activée** dans le BIOS. Cette étape est essentielle pour exécuter des machines virtuelles sur votre système.
@@ -42,5 +41,3 @@ wsl --install
 
 ### Failed with error: Command failed: wsl --install -d Ubuntu
 1. Vous devez activer la virtualisation dans le bios.
-
----
