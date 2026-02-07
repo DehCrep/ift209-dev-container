@@ -103,10 +103,6 @@ Le débogage visuel trivialise le processus de lancement de l'application et le 
 
 3. Appuyez sur `f5` OU Cliquez sur l'onglet **Run and Debug** à gauche (avec la triangle superposé d'un insecte), assurez vous que le profil de lancement sélectionné s'intitule `Debug ARM64 via QEMU` et appuyez sur la flèche de lancement verte en haut de la page.
 
-    Attendez quelques instants et vous verrez peut-être un message d'erreur apparaître qui vous informe qu'une tâche n'a pas cessé de s'exécuter. Sélectionnez la case pour *Remember mu choice for this task* et cliquer sur le bouton pour *Debug Anyway*.
-
-    ![Message d'erreur](images/debug-anyway.png)
-
     Le programme commencera toujours son exécution hors de votre fichier. C'est un quirk de l'émulation QEMU (je pense). Vous verrez un nouveau fichier inexistant s'ouvrir. Vous pouvez le fermer et rouvrir le fichier source de l'exécutable courant.
 
 4. Ajoutez des points d'arrêts directement dans votre fichier source (au `Main`, par exemple), et utilisez les contrôles d'avancement du panneau de contrôle de déboguage qui s'est ouvert dans le milieu haut droit de l'interface de Visual Studio Code pour avancer dans votre code.

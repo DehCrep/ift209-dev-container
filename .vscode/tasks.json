@@ -2,23 +2,36 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "arm-debug",
+            "label": "(QEMU) launch debug",
             "type": "shell",
-            "command": "bash -ic 'arm-debug ${fileDirname}${pathSeparator}${fileBasenameNoExtension}'",
-            "problemMatcher": [],
+            "dependsOn":[ "Log Ready to QEMU output" ],
+            // Print 'ping' and 'pong' to trigger background command lifecycle.
+            "command": "echo ping; echo pong; clear; qemu-aarch64 -L /usr/aarch64-linux-gnu/ -g ${env:DB_PORT} ${fileDirname}${pathSeparator}${fileBasenameNoExtension}",
             "isBackground": true,
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
             "presentation": {
-                "echo": true,
+                // Disabled because cleared anyway.
+                "echo": false,
                 "reveal": "always",
                 "focus": true,
                 "panel": "shared",
-                "showReuseMessage": true,
-                "clear": false
+                "showReuseMessage": false,
+                "clear": true
             },
+            "problemMatcher": {
+                "owner": "custom",
+                "pattern": {
+                    // Should never find any errors.
+                    "regexp": "^(.*)",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "message": 5
+                },
+                "background": {
+                    "beginsPattern": "ping",
+                    "endsPattern": "pong"
+                }
+            }
         }
     ]
 }

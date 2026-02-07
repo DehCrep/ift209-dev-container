@@ -1,6 +1,9 @@
 # Se baser sur la dernière version LTS d'ubuntu
 FROM ubuntu
 
+ENV DB_HOST=localhost
+ENV DB_PORT=1234
+
 # Copier le dossier .devcontainer/tools dans le container sous /root/.../tools
 COPY ./tools /root/SOURCES/ift209/tools
 
