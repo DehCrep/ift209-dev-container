@@ -12,7 +12,6 @@
             "miDebuggerServerAddress": "${env:DB_HOST}:${env:DB_PORT}",
             "preLaunchTask": "(QEMU + gdbstub) debug current file",
             "stopAtEntry": true,
-            "targetArchitecture": "arm64",
             "setupCommands": [
                 {
                     "description": "Set breakpoint pending on",
