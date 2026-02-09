@@ -20,7 +20,8 @@
                     "invalidOperand",
                     "tooFewOperands",
                     "unrecognisedInstruction"
-                ]
+                ],
+                "debug.allowBreakpointsEverywhere": true
             }
         }
     }
