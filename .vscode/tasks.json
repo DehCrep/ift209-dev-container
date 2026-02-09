@@ -31,6 +31,44 @@
                     "endsPattern": "pong"
                 }
             }
+        },
+        {
+            "label": "(QEMU + gdbstub) debug selected file",
+            "type": "shell",
+            // Print 'ping' and 'pong' to trigger background command lifecycle.
+            "command": "echo ping; echo pong; clear; qemu-aarch64 -L /usr/aarch64-linux-gnu/ -g ${env:DB_PORT} ${input:program}",
+            "isBackground": true,
+            "presentation": {
+                // Disabled because cleared anyway.
+                "echo": false,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": {
+                "owner": "custom",
+                "pattern": {
+                    // Should never find any errors.
+                    "regexp": "^(.*)",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "message": 5
+                },
+                "background": {
+                    "beginsPattern": "ping",
+                    "endsPattern": "pong"
+                }
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "program",
+            "type": "promptString",
+            "description": "arm-debug argument (usually the name of the executable program and optional args)",
         }
     ]
 }

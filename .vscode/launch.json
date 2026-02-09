@@ -19,6 +19,32 @@
                     "ignoreFailures": false
                 }
             ]
+        },
+        {
+            "name": "(QEMU + gdb) debug selected file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${input:program}",
+            "cwd": "${fileDirname}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb-multiarch",
+            "miDebuggerServerAddress": "${env:DB_HOST}:${env:DB_PORT}",
+            "preLaunchTask": "(QEMU + gdbstub) debug selected file",
+            "stopAtEntry": true,
+            "setupCommands": [
+                {
+                    "description": "Set breakpoint pending on",
+                    "text": "set breakpoint pending on",
+                    "ignoreFailures": false
+                }
+            ]
+        }
+    ],
+    "inputs": [
+        {
+            "id": "program",
+            "type": "promptString",
+            "description": "arm-debugger argument (must be name of the executable program)",
         }
     ]
 }
