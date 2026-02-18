@@ -18,12 +18,10 @@ Le Dev Container de ce projet est configuré spécifiquement pour permettre le d
 
 > **Utilisateurs Windows:** Pour un installation plus légère, installer manuellement WSL et Docker avec les instructions dans [ce document](/wsl-configuration.md).
 
-
 ## Utiliser le Dev Container
 1. Télécharger la dernière version du Dev Container [ici](https://github.com/DehCrep/IFT209-DevContainer/releases/latest).
-1. Dézipper la dans le même dossier que votre projet. *Les dossiers [`.devcontainer`](.devcontainer) [`.vscode`](.vscode) devraient se trouver à sa racine.*
-
-2. Ouvrir votre dossier de travail avec *Visual Studio Code*. Celui-ci devrait vous proposer de rouvrir le dossier dans le DevContainer. Faites-le!
+1. Extraire le dossier compressé dans le même dossier que votre projet. *Les dossiers [`.devcontainer`](.devcontainer) [`.vscode`](.vscode) devraient se trouver à sa racine.*
+2. Ouvrez votre dossier de travail avec *Visual Studio Code*. Celui-ci devrait vous proposer de rouvrir le dossier dans le DevContainer. Faites-le!
 *Vous pouvez forcer Visual Studio Code à lancer le Dev Container en appuyant sur `f1` et en sélectionnant `Dev Containers: Reopen in Container`.*
 
 > **Remarque:** Au premier lancement, Docker téléchargera les fichiers nécéssaires pour l'exécution de l'environnement de développement. Ça prendra quelques minutes. Vous verrez apparaître vos fichiers dans l'explorateur à gauche lorsque le processus sera fini. Le libellé du ruban bleu en bas à gauche devrait aussi indiquer `armdevenv`.
@@ -44,7 +42,6 @@ Des alias ont été créés pour faciliter les tâches principales de l'environn
 |`adbg`|`arm-debugger`|
 
 ### Commandes spéciales
-
 Des commandes ont été créées pour trivialiser l'utilisation de QEMU et de gdb.
 
 |Commande|Argument|Fonction|
@@ -55,7 +52,7 @@ Des commandes ont été créées pour trivialiser l'utilisation de QEMU et de gd
 
 ## Compiler un programme
 
-Le container vient préinstallé avec des outils de cross-compilation. Il est aussi configurer pour rendre leur utilisation transparente avec des alias.
+Le container vient préinstallé avec des outils de cross-compilation. Il est aussi configuré pour rendre leur utilisation transparente avec des alias.
 |Alias|Programme|
 |:--|:--|
 |`as`|`aarch64-linux-gnu-as`|
@@ -84,9 +81,7 @@ make
 ```
 
 ## Exécution
-
 Vous ne pouvez pas directement lancer un programme de la même façon que la machine virtuelle de l'école.
-
 Utilisez plutôt la fonction `arm-run [file]` ou son alias `ar [file]`:
 ```bash
 #arm-run ./prog
@@ -95,11 +90,9 @@ ar ./prog
 ```
 
 ## Débogage
-
 QEMU ne supporte pas le débogage avec gdb nativement, mais nous pouvons contourner cette limitation par le biais d'un serveur de débogage:
 
-
-1. Dans un premier terminal, lancer d'abord votre programme avec la fonction `arm-debug [file]` ou son alias `adb [file]`.
+1. Dans un premier terminal, lancez d'abord votre programme avec la fonction `arm-debug [file]` ou son alias `adb [file]`.
     ```bash
     #arm-debug ./prog
     # Même chose que:
@@ -107,7 +100,7 @@ QEMU ne supporte pas le débogage avec gdb nativement, mais nous pouvons contour
     ```
     Vous remarquerez que votre programme semble être en pause. **C'est le cas!** Il attend le signal du débogueur pour commencer son exécution.
 
-2. Dans un deuxième terminal, lancer le débogueur avec la commande `arm-debugger [file]` ou son alias `adbg [file]`.
+2. Dans un deuxième terminal, lancez le débogueur avec la commande `arm-debugger [file]` ou son alias `adbg [file]`.
     ```bash
     #arm-debugger ./prog
     # Même chose que:
@@ -118,15 +111,13 @@ QEMU ne supporte pas le débogage avec gdb nativement, mais nous pouvons contour
     Vous êtes maintenant en train de déboguer votre programme. Utilisez toutes les commandes de GDB que vous voulez (quel plaisir!)
 
 ## Débogage visuel (Visual Studio Code)
-
 Le débogage visuel réduit en un simple clic le processus de lancement et d'analyse de programmes asm.
 
-1. Compiler d'abord votre programme manuellement. Nous aurons besoin de son exécutable.
-
+1. Compilez d'abord votre programme manuellement. Nous aurons besoin de son exécutable.
 
 > **Attention :** Assurez-vous que vous compilez avec l'argument `-g` ([plutôt que `-gstabs`](https://github.com/DehCrep/IFT209-DevContainer/issues/18)).
 
-2. Dans l'onglet **Run and Debug**, Choisir le [profil de débogage](https://code.visualstudio.com/docs/debugtest/debugging) qui vous convient et appuyez sur `f5` pour démarrer la session de débogage.
+2. Dans l'onglet **Run and Debug**, choisir le [profil de débogage](https://code.visualstudio.com/docs/debugtest/debugging) qui vous convient et appuyez sur `f5` pour démarrer la session de débogage.
     - Utiliser **(QEMU + gdb) debug current file** (par défaut) pour déboguer l'exécutable qui porte le même nom que le fichier source actuellement ouvert. Par exemple, si votre fichier source s'appelle `prog.as`, VS Code lancera automatiquement le programme intitulé `prog` dans le même répertoire.
 
     - Utiliser **(QEMU + gdb) debug selected file** pour déboguer un exécutable et lui passer des arguments. Vous serez invités à enter 2 paramètres:
@@ -141,10 +132,11 @@ Le débogage visuel réduit en un simple clic le processus de lancement et d'ana
 ### Ajouter des points d'arrêt
 Ajoutez des points d'arrêts directement dans votre fichier source (au `Main`, par exemple) et utilisez [la barre d'outils de débogage](https://code.visualstudio.com/docs/debugtest/debugging#_debug-actions) pour contrôler l'exécution de votre programme.
 
-### Consulter les registres
+### Consultation des registres
 Lorsque l'exécution est en pause, les registres et leurs valeurs sont disponibles dans [le panneau de gauche](https://code.visualstudio.com/docs/debugtest/debugging#_data-inspection).
 
 ### Désassemblage du code
 Vous pouvez consulter le code désassemblé de l'application en faisant un clic droit sur sur n'importe quel élément du call stack (dans le panneau de gauche) et en sélectionnant `Open Disassembly View`. *Vous pouvez même directement ajouter des breakpoints dans le code désassemblé!*
+
 
 ![Le panneau de disassembly dans Visual Studio Code](images/disassembly-preview.png)
